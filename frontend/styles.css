@@ -1,0 +1,226 @@
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-card: #141414;
+    --text-primary: #ffffff;
+    --text-muted: #888888;
+    --accent: #4a90e2;
+    --border: rgba(255, 255, 255, 0.1);
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    background: rgba(10, 10, 10, 0.8);
+    z-index: 100;
+}
+
+.nav-brand {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: start;
+    /* Prevents columns from stretching to match each other's height */
+}
+
+.control-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    position: sticky;
+    top: 100px;
+    /* offset below the top nav */
+    z-index: 50;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-header h2 {
+    margin: 0.5rem 0 1.5rem 0;
+    font-weight: 300;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+select {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.75rem;
+    font-family: var(--font-mono);
+    margin-top: 0.5rem;
+    appearance: none;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.cta-button {
+    width: 100%;
+    background: var(--text-primary);
+    color: var(--bg-dark);
+    border: none;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.cta-button:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    opacity: 0.5;
+}
+
+/* Timeline/Graph nodes */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 1px solid var(--border);
+}
+
+.node {
+    position: relative;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+}
+
+.node::before {
+    content: '';
+    position: absolute;
+    left: -2.3rem;
+    top: 1.25rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--accent);
+    border-radius: 50%;
+}
+
+.node.red-action::before {
+    background: #e24a4a;
+}
+
+.node.blue-detect::before {
+    background: #4ae26f;
+}
+
+.node-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.node-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.code-block {
+    background: var(--bg-dark);
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* Constrain Mermaid.js Diagram Vertical Explosion */
+#chainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+    max-height: 80vh;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+#chainContainer svg {
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 70vh !important;
+    /* Forces vertical compression */
+}

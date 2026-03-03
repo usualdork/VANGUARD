@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANGUARD | Autonomous Adversarial Simulation</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">VANGUARD</div>
+        <div class="nav-links" style="display:flex; gap:2rem;">
+            <a href="#" id="tabStream" class="nav-tab active mono-label"
+                style="color:var(--accent); text-decoration:none; padding-bottom:5px; border-bottom:2px solid var(--accent);">LIVE
+                STREAM</a>
+            <a href="#" id="tabChain" class="nav-tab mono-label"
+                style="color:var(--text-primary); text-decoration:none; padding-bottom:5px; border-bottom:2px solid transparent; transition:0.3s;">ATTACK
+                CHAIN</a>
+            <a href="#" id="tabFindings" class="nav-tab mono-label"
+                style="color:var(--text-primary); text-decoration:none; padding-bottom:5px; border-bottom:2px solid transparent; transition:0.3s;">KEY
+                FINDINGS</a>
+            <a href="#" id="tabSOC" class="nav-tab mono-label"
+                style="color:var(--text-primary); text-decoration:none; padding-bottom:5px; border-bottom:2px solid transparent; transition:0.3s;">SOC
+                RULES</a>
+        </div>
+    </nav>
+
+    <main class="grid-container">
+        <!-- Control Panel -->
+        <section class="control-panel card">
+            <div class="card-header">
+                <span class="mono-label">OLLAMA CORE</span>
+                <h2>Simulation Control</h2>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="targetInput" class="mono-label">TARGET APP / NETWORK</label>
+                    <input type="text" id="targetInput" value="http://127.0.0.1:9999"
+                        style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.3); border:1px solid #333; color:#fff; font-family:'IBM Plex Mono', monospace; font-size:0.9rem; border-radius:4px; margin-top:0.5rem;"
+                        autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="scopeSelect" class="mono-label">ENGAGEMENT SCOPE</label>
+                    <select id="scopeSelect">
+                        <option value="app">Application Pentest</option>
+                        <option value="network">Network Discovery</option>
+                        <option value="local_destructive" style="color:#ff5555; background:#2a0000;">Local Device
+                            (Danger: Destructive)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="maxStepsInput" class="mono-label">MAX REASONING STEPS</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="range" id="maxStepsInput" min="10" max="100" value="20" style="flex-grow: 1;">
+                        <span id="maxStepsValue"
+                            style="color:var(--accent); font-family:'IBM Plex Mono', monospace; font-weight:bold;">20</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="runBtn" class="cta-button" style="flex: 3;">INITIALIZE RUN</button>
+                    <button id="clearBtn" class="cta-button"
+                        style="flex: 1; background: transparent; border: 1px solid var(--accent); color: var(--accent);">RESET
+                        ++</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Output Views -->
+        <div id="viewContainer" style="width: 100%;">
+            <!-- Live Stream View -->
+            <section class="graph-panel card view-section" id="viewStream">
+                <div class="card-header">
+                    <span class="mono-label">EVENT ONTOLOGY</span>
+                    <h2>Timeline Correlation</h2>
+                </div>
+                <!-- Add streamContainer back natively so app.js can find it on hard reload -->
+                <div class="card-body" id="timelineContainer">
+                    <div class="timeline" id="streamContainer">
+                        <div class="empty-state mono-label">AWAITING TELEMETRY STREAM...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attack Chain View -->
+            <section class="graph-panel card view-section" id="viewChain" style="display:none;">
+                <div class="card-header"
+                    style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <span class="mono-label">EXPLOITATION PATH</span>
+                        <h2>Attack Chain Visualization</h2>
+                    </div>
+                    <div class="zoom-controls" style="display: flex; gap: 5px;">
+                        <button id="zoomOutBtn" class="cta-button"
+                            style="padding: 0.5rem 1rem; width: auto; font-size: 1.2rem;">-</button>
+                        <button id="zoomInBtn" class="cta-button"
+                            style="padding: 0.5rem 1rem; width: auto; font-size: 1.2rem;">+</button>
+                    </div>
+                </div>
+                <div class="card-body" id="chainContainer">
+                    <div class="empty-state mono-label">NO ATTACK DATA AVAILABLE YET...</div>
+                </div>
+            </section>
+
+            <!-- Key Findings View -->
+            <section class="graph-panel card view-section" id="viewFindings" style="display:none;">
+                <div class="card-header">
+                    <span class="mono-label">PENTEST RESULTS</span>
+                    <h2>Key Findings</h2>
+                </div>
+                <div class="card-body" id="findingsContainer">
+                    <div class="empty-state mono-label">NO VULNERABILITIES DETECTED YET...</div>
+                </div>
+            </section>
+
+            <!-- SOC Rules View -->
+            <section class="graph-panel card view-section" id="viewSOC" style="display:none;">
+                <div class="card-header">
+                    <span class="mono-label">DEFENSE MATRIX</span>
+                    <h2>SOC Heuristic Rules</h2>
+                </div>
+                <div class="card-body" id="socContainer">
+                    <table
+                        style="width:100%; text-align:left; border-collapse:collapse; color:#e0e0e0; font-family:'IBM Plex Mono', monospace; font-size:0.85rem;">
+                        <thead>
+                            <tr style="border-bottom:1px solid #333; color:var(--text-muted);">
+                                <th style="padding:10px;">ID</th>
+                                <th style="padding:10px;">Heuristic Rule</th>
+                                <th style="padding:10px;">Severity</th>
+                                <th style="padding:10px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dynamicSocTable">
+                            <tr style="border-bottom:1px solid #222;">
+                                <td colspan="4"
+                                    style="padding:10px; text-align:center; color:var(--text-muted); font-style:italic;">
+                                    AWAITING SIMULATION COMPLETION TO GENERATE RULES...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Include Mermaid.js for Attack Chain -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: false, theme: 'dark' });</script>
+    <script src="app.js"></script>
+</body>
+
+</html>
