@@ -29,49 +29,26 @@ The rapid evolution of Advanced Persistent Threats (APTs) severely outpaces the 
 <br>
 
 <div align="center">
-  <!-- [PLACEHOLDER: Insert Main Global Dashboard Screenshot Here] -->
-  <img src="https://via.placeholder.com/900x500.png?text=VANGUARD+Global+Operations+Dashboard" alt="Vanguard Dashboard UI" width="900" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
+  <img
+    src="https://github.com/user-attachments/assets/0bb86418-31e5-4dee-843e-f478c3ddb364"
+    alt="Vanguard Dashboard UI"
+    width="900"
+  />
   <p><i>Figure 1: The Reactive Event-Ontology Dashboard rendering LLM cognitions in real-time.</i></p>
 </div>
-
----
 
 ## 🏗️ Technical Architecture
 
 VANGUARD operates a tripartite closed-loop interaction mapped over an asynchronous Server-Sent Events (SSE) stream, providing total cryptographic transparency into the AI's "brain."
 
-```mermaid
-graph TD
-    subgraph Cognitive Engine (Local Edge LLM)
-        A([Observe]) -->|Parse Telemetry| B([Think])
-        B -->|ReAct Loop| C([Act / Exploit])
-        C -->|Command/HTTP| A
-    end
-
-    subgraph Sandboxed Execution Layer
-        C -.->|Evaluates against| G{FATAL_OS_BLOCKLIST}
-        G -->|Block| Blocked[Execution Denied]
-        G -->|Pass| Exec[Vanguard System Tools]
-    end
-
-    subgraph Target Infrastructure
-        Exec -->|Attacks| App(Vulnerable Targets: Web/Cloud/ERP)
-        App -->|Logs| SIEM[(Elasticsearch SIEM)]
-    end
-    
-    subgraph DefSecOps Pipeline
-        SIEM -->|TTD Validation| Analytics[Gap Analyzer]
-        Analytics -->|0% Detection Found| RuleGen(Dynamic SOC Rule Synthesis)
-        RuleGen -->|POST KQL Rules| SIEM
-    end
-
-    style A fill:#0d1117,stroke:#58a6ff
-    style B fill:#0d1117,stroke:#bc8cff
-    style C fill:#0d1117,stroke:#ff7b72
-    style G fill:#ff7b72,color:#fff
-    style SIEM fill:#005571,color:#fff,stroke:#00bfb3
-    style RuleGen fill:#238636,color:#fff
-```
+<div align="center">
+  <img
+    src="https://github.com/user-attachments/assets/272a064c-5fdd-4be7-8bf3-6700c90f27f9"
+    alt="Vanguard Architecture Flow Diagram"
+    width="250"
+  />
+  <p><i>Figure 2: End-to-end autonomous pipeline - from LLM cognition loop through sandboxed execution, target exploitation, and dynamic SOC rule synthesis.</i></p>
+</div>
 
 ## 🎯 Groundbreaking Capabilities
 
@@ -79,17 +56,32 @@ graph TD
 Conventional LLMs operate opaquely. VANGUARD utilizes an asynchronous web-stream (SSE) allowing human operators to cryptographically observe the agent's real-time state transitions (`🧠 Cognitive Reason` → `⚡ Tool Executed` → `📤 Observation`) through a custom, Palantir-inspired UI. 
 
 <div align="center">
-  <!-- [PLACEHOLDER: Insert SSE Live Stream Screenshot Here] -->
-  <img src="https://via.placeholder.com/800x400.png?text=SSE+State+Transition+Live+Stream" alt="Live Stream UI" width="800" style="border-radius: 8px;">
+  <video
+    src="https://github.com/user-attachments/assets/d36af1c1-8d87-49fc-b4a2-20dfddfe37a5"
+    autoplay
+    muted
+    loop
+    playsinline
+    controls
+    width="900"
+    title="VANGUARD Full Application Walkthrough">
+  </video>
+  <p><i>Figure 3: Full VANGUARD application walkthrough - SSE live-stream of agent state transitions across the Palantir-inspired UI.</i></p>
 </div>
 
 ### 2. Autonomous DefSecOps (Dynamic Purple Teaming)
 The framework does not merely highlight vulnerabilities—it acts as an autonomous DefSecOps engineer. Following a successful simulated breach, the LLM systematically structures its un-logged attack vectors into **Elasticsearch KQL Heuristics** and autonomously deploys them to the SIEM (`vanguard-rules`). Defensive parity natively scales with offensive automation.
 
 <div align="center">
-  <!-- [PLACEHOLDER: Insert Kibana SOC Dashboard Screenshot Here] -->
-  <img src="https://via.placeholder.com/800x400.png?text=Kibana+SIEM+Dashboard+Auto-Populated" alt="Kibana SIEM Overview" width="800" style="border-radius: 8px;">
+  <img
+    src="https://github.com/user-attachments/assets/3db9af86-beb8-4b3c-8f2f-5fddf004ba0f"
+    alt="Vanguard Autonomous KQL Rule Synthesis"
+    width="900"
+  />
+  <p><i>Figure 4: Autonomous DefSecOps loop - LLM-structured attack vectors synthesized into Elasticsearch KQL heuristics and autonomously deployed to the <code>vanguard-rules</code> SIEM index.</i></p>
 </div>
+
+
 
 ### 3. Multi-Vertical Attack Surfaces (Zero-Shot Capability)
 VANGUARD ships with a standalone suite of vulnerable enterprise targets to validate Zero-Shot exploitation logic:
@@ -98,8 +90,12 @@ VANGUARD ships with a standalone suite of vulnerable enterprise targets to valid
 * `targets/legacy_erp.py`: Emulation of unpatched, critical internal architecture.
 
 <div align="center">
-  <!-- [PLACEHOLDER: Insert Attack Chain Flowchart Screenshot Here] -->
-  <img src="https://via.placeholder.com/800x400.png?text=Generated+Mermaid+Kill-Chain+Graph" alt="Attack Chain Graph" width="800" style="border-radius: 8px;">
+  <img
+    src="https://github.com/user-attachments/assets/e48e48f1-60d2-429f-84a9-167059abe742"
+    alt="Vanguard Attack Chain Visualization"
+    width="900"
+  />
+  <p><i>Figure 5: Real-time Attack Chain Visualization - the LLM's exploitation path rendered as a live directed graph across multi-vertical targets.</i></p>
 </div>
 
 ---
@@ -110,7 +106,7 @@ For **Defense Contractors** and **Academic Research Groups (PhD)**, VANGUARD ser
 
 1. **Multi-Agent Wargaming (Swarm Logic):** Evolving from a single Purple node to a distributed swarm. "Red" LLM agents coordinating lateral movement across diverse VPC segments, while an entirely separate "Blue" LLM dynamically rewrites YARA/Zeek rules in real-time to intercept them.
 2. **Reinforcement Learning from Human Feedback (RLHF):** Training proprietary defense-sector weights by having human elite Red Teamers grade the efficacy and stealth of VANGUARD's generated payloads.
-3. **Air-Gapped Operationalization:** VANGUARD is purposely engineered to thrive entirely off-grid. By leveraging quantized edge-models (`Qwen 2.5 8B`) and completely cutting reliance on OpenAI/Anthropic APIs, the framework is mathematically cleared for deployment within partitioned hyper-secure enclaves.
+3. **Air-Gapped Operationalization:** VANGUARD is purposely engineered to thrive entirely off-grid. By leveraging quantized edge-models (`Qwen 3 8B`) and completely cutting reliance on OpenAI/Anthropic APIs, the framework is mathematically cleared for deployment within partitioned hyper-secure enclaves.
 
 ---
 
@@ -119,7 +115,7 @@ For **Defense Contractors** and **Academic Research Groups (PhD)**, VANGUARD ser
 ### Prerequisites
 - macOS/Linux (Tested on Ubuntu 22.04 & macOS Sonoma)
 - Python 3.10+
-- [Ollama](https://ollama.ai/) installed locally (Required models: `qwen3:8b` or `llama3`)
+- [Ollama](https://ollama.com/) installed locally (Required models: `qwen3:8b` or `llama3`)
 - [Docker](https://www.docker.com/) (For Elasticsearch/Kibana integration)
 
 ### 1. Zero-Touch Deployment
